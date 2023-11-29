@@ -1,5 +1,4 @@
 import {test, expect, Page} from '@playwright/test';
-// import {whatToExpectPage} from '../pages/whatToExpectPage';
 import { whatToExpect, } from '../pageObjects/whatToExpect';
 import {getStarted} from "../pageObjects/getStarted";
 import {getStartedPage} from "../pages/getStartedPage";
@@ -13,8 +12,7 @@ let page: Page;
 
 
 test.describe('Scheduling appointment', async () => {
-
-    //this allows us to run all tests in one session (serial mode)
+    
     test.beforeAll(async ({browser,}) => {
         page = await browser.newPage();
     });
@@ -28,16 +26,14 @@ test.describe('Scheduling appointment', async () => {
         await expect(page).toHaveTitle(/What to expect*/);
     });
 
-    test('click on button', async () => {
+    test('click on  button', async () => {
         const what = new whatToExpect(page)
         await what.clickOnStartButton()
         await expect(page).toHaveTitle(/Get started*/);
-        //await page.pause()
     })
     test('Fill in information on get Started page', async () => {
         const get = new getStarted(page)
         await get.cancerSelection("Adrenal Tumors", true)
-        //await page.waitForTimeout(3000);
         const locatorH1 = page.getByTestId(aboutYouPage.HEADER_H1)
         await expect(locatorH1).toHaveText(/About you/, {timeout: 4000});
     })
